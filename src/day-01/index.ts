@@ -9,24 +9,53 @@ export class Day01 implements AoCDay {
     console.log(`Processing results for ${inputFileName}`);
   }
 
-  public run(): number {
+  /**
+   * Entry Point
+   */
+  public run(): {totalDistance: number; similarityScore: number} {
     const input = this.getInput(this.inputFilename);
     const parseInput: [number[], number[]] = this.parseInput(input);
     const orderedInput: [number[], number[]] = this.orderInput(parseInput);
+    const totalDistance = this.calculateTotalDistance(orderedInput);
+    const similarityScore = this.calculateSimilarityScore(orderedInput);
+    return {totalDistance, similarityScore};
+  }
+
+  /**
+   * Calculate Total Distance
+   *
+   * @param input
+   */
+  public calculateTotalDistance(input: [number[], number[]]) {
     let distance = 0;
-    for (let i = 0; i < orderedInput[0].length; i++) {
-      if (orderedInput[0][i] && orderedInput[1][i]) {
-        const difference = this.getDistance(
-          orderedInput[0][i],
-          orderedInput[1][i],
-        );
+    for (let i = 0; i < input[0].length; i++) {
+      if (input[0][i] && input[1][i]) {
+        const difference = this.getDistance(input[0][i], input[1][i]);
         distance += difference;
         console.log(
-          `Distance between ${orderedInput[0][i]} and ${orderedInput[1][i]} is ${difference}`,
+          `Distance between ${input[0][i]} and ${input[1][i]} is ${difference}`,
         );
       }
     }
     return distance;
+  }
+
+  /**
+   * Calculate Similarity Score
+   * @param input
+   */
+  public calculateSimilarityScore(input: [number[], number[]]) {
+    let score = 0;
+    input[0].forEach(number => {
+      if (number) {
+        const count = this.getSimilarNumberCount(number, input[1]);
+        console.log(
+          `Number ${number} appears ${count} times in the second array`,
+        );
+        score += number * count;
+      }
+    });
+    return score;
   }
 
   /**
@@ -53,6 +82,23 @@ export class Day01 implements AoCDay {
       orderedInput = [input1, input2];
     }
     return orderedInput[1] - orderedInput[0];
+  }
+
+  /**
+   * Get the number of times a number appears in an array
+   *
+   * @param needle number - Number to search for
+   * @param haystack number[] - Array to search in
+   * @returns number - Number of times the number appears in the array
+   */
+  public getSimilarNumberCount(needle: number, haystack: number[]) {
+    let count = 0;
+    for (let i = 0; i < haystack.length; i++) {
+      if (haystack[i] === needle) {
+        count++;
+      }
+    }
+    return count;
   }
 
   /**

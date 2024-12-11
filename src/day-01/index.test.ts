@@ -20,7 +20,7 @@ function mockInput() {
   });
 }
 
-describe('Advent of Code Day 01', () => {
+describe('Advent of Code Day 01 - Part 1', () => {
   beforeEach(() => {
     day = new Day01('input.txt');
     mockInput();
@@ -30,10 +30,13 @@ describe('Advent of Code Day 01', () => {
     jest.resetAllMocks();
   });
 
-  describe('run', () => {
+  describe('calculateTotalDistance', () => {
     it('should return the correct answer for part 1', () => {
-      const answer = day.run();
-      expect(answer).toEqual(12);
+      const input: [number[], number[]] = [
+        [1, 2, 3],
+        [4, 3, 2],
+      ];
+      expect(day.calculateTotalDistance(input)).toEqual(5);
     });
   });
 
@@ -92,6 +95,34 @@ describe('Advent of Code Day 01', () => {
       const input = [4, 1, 2, 3];
       const expected = [1, 2, 3, 4];
       expect(day.orderArray(input)).toEqual(expected);
+    });
+  });
+});
+
+describe('Advent of Code Day 01 - Part 2', () => {
+  describe('getSimilarNumberCount', () => {
+    it('should return the number of times a number appears in an array', () => {
+      const input = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+      ];
+      const expected = 2;
+      expect(day.getSimilarNumberCount(1, input)).toEqual(expected);
+    });
+  });
+
+  describe('calculateSimilarityScore', () => {
+    it('should calculate the similarity score between 2 equal arrays', () => {
+      const input1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      const input2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      const expected = 55;
+      expect(day.calculateSimilarityScore([input1, input2])).toEqual(expected);
+    });
+
+    it('should calculate the similarity score between 2 non-equal arrays', () => {
+      const input1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      const input2 = [1, 2, 3, 3, 3, 5, 3, 3, 2, 1];
+      const expected = 26;
+      expect(day.calculateSimilarityScore([input1, input2])).toEqual(expected);
     });
   });
 });

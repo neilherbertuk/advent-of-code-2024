@@ -25,6 +25,18 @@ npm run start
 
 ## Day 1
 
+### Part 1
+
 Attempted 11/12/2024
+
 Take an input which contains 2 lists of numbers, sort these 2 lists from lowest to highest and get the total distance between each pair.
+
+Submitted 11/12/2024 - first attempt correct
+
+### Part 2
+
+Attempted 11/12/2024
+
+Take the left list, go through each number checking how many times it appears in the right list and times it by that (left: 1 2 3 right: 2 2 2). 1 * 0 = 0, 2 + 3 = 6, 3 * 0 = 0. Add these together.
+
 Submitted 11/12/2024 - first attempt correct
