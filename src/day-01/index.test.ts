@@ -1,36 +1,21 @@
 import {Day01} from './index';
-import * as fs from 'fs';
-import { getInput } from "../utils";
+import {getInput, mockInput} from '../utils';
 
 let day: Day01;
 let input: string[];
 
-function mockInput() {
-  // Mock Input
+beforeEach(() => {
+  const filename = 'input.txt';
+  day = new Day01(filename);
   input = ['1   4', '4   5', '9   3', '10   4'];
-  jest.mock('fs');
-  const mockReadFileSync = jest.fn();
-  (fs.readFileSync as unknown as jest.Mock) = mockReadFileSync;
+  mockInput(filename, input);
+});
 
-  // Define mock implementation
-  mockReadFileSync.mockImplementation((filePath: string, encoding: string) => {
-    if (filePath === 'input.txt' && encoding === 'utf-8') {
-      return input.join('\n');
-    }
-    throw new Error('File not found');
-  });
-}
+afterEach(() => {
+  jest.resetAllMocks();
+});
 
 describe('Advent of Code Day 01 - Part 1', () => {
-  beforeEach(() => {
-    day = new Day01('input.txt');
-    mockInput();
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
   describe('calculateTotalDistance', () => {
     it('should return the correct answer for part 1', () => {
       const input: [number[], number[]] = [

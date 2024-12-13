@@ -1,7 +1,7 @@
-import { AoCDay, getInput } from "../utils";
+import {AoCDay, getInput} from '../utils';
 
 export class Day01 implements AoCDay {
-  private inputFilename: string;
+  private readonly inputFilename: string;
   constructor(inputFileName: string) {
     console.log('Day 01');
     this.inputFilename = inputFileName;
