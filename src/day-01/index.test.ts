@@ -1,35 +1,21 @@
 import {Day01} from './index';
-import * as fs from 'fs';
+import {getInput, mockInput} from '../utils';
 
 let day: Day01;
 let input: string[];
 
-function mockInput() {
-  // Mock Input
+beforeEach(() => {
+  const filename = 'input.txt';
+  day = new Day01(filename);
   input = ['1   4', '4   5', '9   3', '10   4'];
-  jest.mock('fs');
-  const mockReadFileSync = jest.fn();
-  (fs.readFileSync as unknown as jest.Mock) = mockReadFileSync;
+  mockInput(filename, input);
+});
 
-  // Define mock implementation
-  mockReadFileSync.mockImplementation((filePath: string, encoding: string) => {
-    if (filePath === 'input.txt' && encoding === 'utf-8') {
-      return input.join('\n');
-    }
-    throw new Error('File not found');
-  });
-}
+afterEach(() => {
+  jest.resetAllMocks();
+});
 
 describe('Advent of Code Day 01 - Part 1', () => {
-  beforeEach(() => {
-    day = new Day01('input.txt');
-    mockInput();
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
   describe('calculateTotalDistance', () => {
     it('should return the correct answer for part 1', () => {
       const input: [number[], number[]] = [
@@ -42,14 +28,14 @@ describe('Advent of Code Day 01 - Part 1', () => {
 
   describe('getInput', () => {
     it('should read input from a file', () => {
-      const readInput = day.getInput('input.txt');
+      const readInput = getInput('input.txt');
       expect(readInput).toEqual(input.join('\n'));
     });
   });
 
   describe('parseInput', () => {
     it('should parse input into a multi-dimensional array of numbers', () => {
-      const readInput = day.getInput('input.txt');
+      const readInput = getInput('input.txt');
       const parsedInput: [number[], number[]] = day.parseInput(readInput);
       expect(parsedInput).toEqual([
         [1, 4, 9, 10],
@@ -60,7 +46,7 @@ describe('Advent of Code Day 01 - Part 1', () => {
 
   describe('orderInput', () => {
     it('should order input from lowest to highest', () => {
-      const readInput = day.getInput('input.txt');
+      const readInput = getInput('input.txt');
       const parsedInput: [number[], number[]] = day.parseInput(readInput);
       const orderedInput: [number[], number[]] = day.orderInput(parsedInput);
       expect(orderedInput).toEqual([
