@@ -1,5 +1,6 @@
 import {Day01} from './index';
 import * as fs from 'fs';
+import { getInput } from "../utils";
 
 let day: Day01;
 let input: string[];
@@ -42,14 +43,14 @@ describe('Advent of Code Day 01 - Part 1', () => {
 
   describe('getInput', () => {
     it('should read input from a file', () => {
-      const readInput = day.getInput('input.txt');
+      const readInput = getInput('input.txt');
       expect(readInput).toEqual(input.join('\n'));
     });
   });
 
   describe('parseInput', () => {
     it('should parse input into a multi-dimensional array of numbers', () => {
-      const readInput = day.getInput('input.txt');
+      const readInput = getInput('input.txt');
       const parsedInput: [number[], number[]] = day.parseInput(readInput);
       expect(parsedInput).toEqual([
         [1, 4, 9, 10],
@@ -60,7 +61,7 @@ describe('Advent of Code Day 01 - Part 1', () => {
 
   describe('orderInput', () => {
     it('should order input from lowest to highest', () => {
-      const readInput = day.getInput('input.txt');
+      const readInput = getInput('input.txt');
       const parsedInput: [number[], number[]] = day.parseInput(readInput);
       const orderedInput: [number[], number[]] = day.orderInput(parsedInput);
       expect(orderedInput).toEqual([

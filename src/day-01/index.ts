@@ -1,5 +1,4 @@
-import {AoCDay} from '../utils';
-import * as fs from 'node:fs';
+import { AoCDay, getInput } from "../utils";
 
 export class Day01 implements AoCDay {
   private inputFilename: string;
@@ -13,7 +12,7 @@ export class Day01 implements AoCDay {
    * Entry Point
    */
   public run(): {totalDistance: number; similarityScore: number} {
-    const input = this.getInput(this.inputFilename);
+    const input = getInput(this.inputFilename);
     const parseInput: [number[], number[]] = this.parseInput(input);
     const orderedInput: [number[], number[]] = this.orderInput(parseInput);
     const totalDistance = this.calculateTotalDistance(orderedInput);
@@ -56,15 +55,6 @@ export class Day01 implements AoCDay {
       }
     });
     return score;
-  }
-
-  /**
-   * Get input from file
-   *
-   * @param input string - Path of the input file to read
-   */
-  public getInput(input: string): string {
-    return fs.readFileSync(input, 'utf-8');
   }
 
   /**
